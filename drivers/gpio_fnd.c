@@ -16,14 +16,14 @@ ssize_t gpio_fnd_write(struct file *inode, const short *gdata, size_t length, lo
 {
 	/*
     const short *tmp = gdata;
-    unsigned short fnd_buff=0;
 
-    char fnd_sel;
-    char fnd_dat;
 
     if (copy_from_user(&fnd_buff, tmp, length))
         return -EFAULT;
 	*/
+    unsigned short fnd_buff=0;
+    char fnd_sel;
+    char fnd_dat;
     fnd_sel=(char)(fnd_buff>>8);
     fnd_dat=(char)(fnd_buff&0x00FF);
 

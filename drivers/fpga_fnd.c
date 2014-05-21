@@ -33,8 +33,6 @@ ssize_t fpga_fnd_write(struct file *inode, const char *gdata, size_t length, lof
 
 int __init fpga_fnd_init(void)
 {
-	int result;
-
 	iom_fpga_fnd_addr = ioremap(IOM_FND_ADDRESS, 0x4);
 	iom_demo_addr = ioremap(IOM_DEMO_ADDRESS, 0x1);
 	

@@ -1,6 +1,6 @@
 obj-m := fpga_dot.o fpga_fnd.o fpga_lcd.o fpga_led.o gpio_fnd.o gpio_led.o
 
-KDIR := /home/lee/Desktop/kernel
+KDIR := /root/mylinux/kernel/kernel-root
 PWD := $(shell pwd)
 
 default:

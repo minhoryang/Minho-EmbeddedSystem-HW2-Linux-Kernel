@@ -11,12 +11,12 @@ ssize_t led_write(struct file *inode, const char *gdata, size_t length, loff_t *
 {
 	/*
     const char *tmp = gdata;
-    unsigned short led_buff=0;
     
     if (copy_from_user(&led_buff, tmp, length)) // 2byte receive from application
         return -EFAULT;
 	*/
 
+    unsigned short led_buff=0;
     printk("DATA : %d\n",led_buff);
     outb (led_buff, (unsigned int)led_data);
 
@@ -25,7 +25,6 @@ ssize_t led_write(struct file *inode, const char *gdata, size_t length, loff_t *
 
 int __init led_init(void) 
 {
-    int result;
     unsigned int get_ctrl_io=0;
 
     led_data = ioremap(LED_GPBDAT, 0x01);
