@@ -1,5 +1,3 @@
-#include "drivers.h"
-
 #define LED_GPBCON 0x11400040   
 #define LED_GPBDAT 0x11400044  
 
@@ -23,7 +21,7 @@ ssize_t led_write(struct file *inode, const char *gdata, size_t length, loff_t *
     return length;
 }
 
-int __init led_init(void) 
+int __init gpio_led_init(void) 
 {
     unsigned int get_ctrl_io=0;
 
@@ -51,7 +49,7 @@ int __init led_init(void)
     return 0;
 }
 
-void __exit led_exit(void)
+void __exit gpio_led_exit(void)
 {
     outb(0xF0, (unsigned int)led_data);
     iounmap(led_data);

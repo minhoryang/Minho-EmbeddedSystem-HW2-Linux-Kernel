@@ -1,5 +1,3 @@
-#include "./drivers.h"
-
 #define FND_GPL2CON 0x11000100  // Pin Configuration
 #define FND_GPL2DAT 0x11000104  // Pin Data
 #define FND_GPE3CON 0x11400140  // Pin Configuration

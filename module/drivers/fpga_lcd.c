@@ -1,5 +1,3 @@
-#include "./drivers.h"
-
 #define IOM_FPGA_TEXT_LCD_ADDRESS 0x04000100 // pysical address - 32 Byte (16 * 2)
 #define IOM_FPGA_DEMO_ADDRESS 0x04000300 
 
