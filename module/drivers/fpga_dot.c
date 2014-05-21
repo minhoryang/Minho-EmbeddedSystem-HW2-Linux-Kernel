@@ -12,20 +12,14 @@ static unsigned char *iom_fpga_dot_addr;
 static unsigned char *iom_dot_demo_addr;
 
 // when write to fpga_dot device  ,call this function
-ssize_t fpga_dot_write(struct file *inode, const char *gdata, size_t length, loff_t *off_what) 
+ssize_t fpga_dot_write(unsigned char value[10]) 
 {
 	int i;
 
-	unsigned char value[10];
-	const char *tmp = gdata;
-
-	if (copy_from_user(&value, tmp, length))
-		return -EFAULT;
-
-	for(i=0;i<length;i++)
+	for(i=0;i<10;i++)
 		outb(value[i],(unsigned int)iom_fpga_dot_addr+i);
 	
-	return length;
+	return sizeof(value);
 }
 
 

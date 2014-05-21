@@ -10,16 +10,8 @@ static unsigned int *fnd_ctrl;
 static unsigned char *fnd_data2;
 static unsigned int *fnd_ctrl2;
 
-ssize_t gpio_fnd_write(struct file *inode, const short *gdata, size_t length, loff_t *off_what)
+ssize_t gpio_fnd_write(unsigned short fnd_buff)
 {
-	/*
-    const short *tmp = gdata;
-
-
-    if (copy_from_user(&fnd_buff, tmp, length))
-        return -EFAULT;
-	*/
-    unsigned short fnd_buff=0;
     char fnd_sel;
     char fnd_dat;
     fnd_sel=(char)(fnd_buff>>8);
@@ -31,7 +23,7 @@ ssize_t gpio_fnd_write(struct file *inode, const short *gdata, size_t length, lo
 
     outb (fnd_sel,(unsigned int)fnd_data2);
     outb (fnd_dat, (unsigned int)fnd_data);
-    return length;
+    return sizeof(fnd_buff);
 }
 
 int __init gpio_fnd_init(void)

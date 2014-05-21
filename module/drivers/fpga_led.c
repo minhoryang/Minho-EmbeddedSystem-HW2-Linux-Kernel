@@ -10,17 +10,11 @@ static unsigned char *iom_fpga_led_addr;
 static unsigned char *iom_led_demo_addr;
 
 // when write to led device  ,call this function
-ssize_t fpga_led_write(struct file *inode, const char *gdata, size_t length, loff_t *off_what) 
+ssize_t fpga_led_write(unsigned char value) 
 {
-	unsigned char value;
-	const char *tmp = gdata;
-
-	if (copy_from_user(&value, tmp, 1))
-		return -EFAULT;
-
 	outb(value,(unsigned int)iom_fpga_led_addr);	    
 	
-	return length;
+	return sizeof(value);
 }
 
 

@@ -12,15 +12,14 @@ static unsigned char *iom_lcd_demo_addr;
 
 
 // when write to fpga_text_lcd device  ,call this function
-ssize_t fpga_lcd_write(struct file *inode, const char *gdata, size_t length, loff_t *off_what) 
+ssize_t fpga_lcd_write(unsigned char value[32]) 
 {
 	int i;
-
-	unsigned char value[32];
-	const char *tmp = gdata;
-
-	if (copy_from_user(&value, tmp, length))
-		return -EFAULT;
+	for(i=0;i<32;i++){
+		if(!value[i])
+			break;
+	}
+	size_t length = i;
 
 	value[length]=0;
 	printk("Get Size : %d / String : %s\n",length,value);

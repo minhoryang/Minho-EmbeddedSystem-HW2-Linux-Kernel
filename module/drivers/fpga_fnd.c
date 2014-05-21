@@ -9,24 +9,16 @@
 static unsigned char *iom_fpga_fnd_addr;
 static unsigned char *iom_fnd_demo_addr;
 
-// define functions...
-ssize_t fpga_fnd_write(struct file *inode, const char *gdata, size_t length, loff_t *off_what);
-
 
 // when write to fnd device  ,call this function
-ssize_t fpga_fnd_write(struct file *inode, const char *gdata, size_t length, loff_t *off_what) 
+ssize_t fpga_fnd_write(unsigned char value[4]) 
 {
 	int i;
-	unsigned char value[4];
-	const char *tmp = gdata;
 
-	if (copy_from_user(&value, tmp, 4))
-		return -EFAULT;
-
-	for(i=0;i<length;i++) 
+	for(i=0;i<4;i++) 
 		outb(value[i],(unsigned int)iom_fpga_fnd_addr+i);	    
 	
-	return length;
+	return sizeof(value);
 }
 
 int __init fpga_fnd_init(void)
