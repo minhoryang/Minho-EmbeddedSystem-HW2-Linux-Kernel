@@ -12,5 +12,5 @@ clean :
 	rm -rf *.mod.c
 	rm -rf *.order
 	rm -rf *.symvers
-	rm -rf *.cmd
+	rm -rf .*.cmd
 	rm -rf .tmp_versions
