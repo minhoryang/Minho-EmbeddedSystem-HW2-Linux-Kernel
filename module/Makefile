@@ -1,4 +1,4 @@
-obj-m := fpga_dot.o fpga_fnd.o fpga_lcd.o fpga_led.o gpio_fnd.o gpio_led.o
+obj-m := dev_driver.o
 
 KDIR := /root/mylinux/kernel/kernel-root
 PWD := $(shell pwd)

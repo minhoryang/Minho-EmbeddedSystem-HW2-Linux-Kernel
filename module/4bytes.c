@@ -1,16 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 struct wanted{
 	char timelapse;
 	char count;
 	char loc_where;  // 1~4
 	char loc_value;  // 1~8
 };
-struct wanted *revert(int system_called);
-void current_turn(struct wanted *var);
-void draw(struct wanted *var);
-void next_turn(struct wanted *var);
 
 struct wanted *revert(int system_called){
 	struct wanted *this = (struct wanted *)calloc(1, sizeof(struct wanted));  // TODO REPLACE to KERNEL!
