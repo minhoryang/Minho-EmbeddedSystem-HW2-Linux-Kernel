@@ -36,6 +36,7 @@ ssize_t gpio_fnd_write(struct file *inode, const short *gdata, size_t length, lo
 
 int __init gpio_fnd_init(void)
 {
+	printk("%s\n", __FUNCTION__);
     fnd_data = ioremap(FND_GPL2DAT, 0x01);
     fnd_data2 = ioremap(FND_GPE3DAT, 0x01);
     if(fnd_data==NULL)
@@ -61,6 +62,7 @@ int __init gpio_fnd_init(void)
 
 void __exit gpio_fnd_exit(void)
 {
+	printk("%s\n", __FUNCTION__);
     outb(0xFF, (unsigned int)fnd_data);
     iounmap(fnd_data);
     iounmap(fnd_data2);

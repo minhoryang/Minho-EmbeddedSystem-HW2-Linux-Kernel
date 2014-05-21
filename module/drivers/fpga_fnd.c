@@ -7,7 +7,7 @@
 
 
 static unsigned char *iom_fpga_fnd_addr;
-static unsigned char *iom_demo_addr;
+static unsigned char *iom_fnd_demo_addr;
 
 // define functions...
 ssize_t fpga_fnd_write(struct file *inode, const char *gdata, size_t length, loff_t *off_what);
@@ -31,10 +31,11 @@ ssize_t fpga_fnd_write(struct file *inode, const char *gdata, size_t length, lof
 
 int __init fpga_fnd_init(void)
 {
+	printk("%s\n", __FUNCTION__);
 	iom_fpga_fnd_addr = ioremap(IOM_FND_ADDRESS, 0x4);
-	iom_demo_addr = ioremap(IOM_DEMO_ADDRESS, 0x1);
+	iom_fnd_demo_addr = ioremap(IOM_DEMO_ADDRESS, 0x1);
 	
-	outb(UON,(unsigned int)iom_demo_addr);	    
+	outb(UON,(unsigned int)iom_fnd_demo_addr);	    
 
 
 	return 0;
@@ -42,7 +43,8 @@ int __init fpga_fnd_init(void)
 
 void __exit fpga_fnd_exit(void) 
 {
+	printk("%s\n", __FUNCTION__);
 	iounmap(iom_fpga_fnd_addr);
-	iounmap(iom_demo_addr);
+	iounmap(iom_fnd_demo_addr);
 }
 

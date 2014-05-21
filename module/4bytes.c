@@ -6,23 +6,12 @@ struct wanted{
 };
 
 struct wanted *revert(int system_called){
-	struct wanted *this = (struct wanted *)calloc(1, sizeof(struct wanted));  // TODO REPLACE to KERNEL!
+	struct wanted *this;// = (struct wanted *)calloc(1, sizeof(struct wanted));  // TODO REPLACE to KERNEL!
 	this->loc_value = system_called % 256;
 	this->loc_where = (system_called / 256) % 256;
 	this->count = (system_called / 256 / 256) % 256;
 	this->timelapse = (system_called / 256 / 256 / 256) % 256;
 	return this;
-}
-
-void current_turn(struct wanted *var){
-	if(var){
-		if(var->count){
-			draw(var);
-			next_turn(var);
-		}else{
-			draw(NULL);
-		}
-	}
 }
 
 void draw(struct wanted *var){
@@ -59,3 +48,13 @@ void next_turn(struct wanted *var){
 	}
 }
 
+void current_turn(struct wanted *var){
+	if(var){
+		if(var->count){
+			draw(var);
+			next_turn(var);
+		}else{
+			draw(NULL);
+		}
+	}
+}

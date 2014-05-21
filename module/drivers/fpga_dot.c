@@ -9,7 +9,7 @@
 
 //Global variable
 static unsigned char *iom_fpga_dot_addr;
-static unsigned char *iom_demo_addr;
+static unsigned char *iom_dot_demo_addr;
 
 // when write to fpga_dot device  ,call this function
 ssize_t fpga_dot_write(struct file *inode, const char *gdata, size_t length, loff_t *off_what) 
@@ -31,15 +31,17 @@ ssize_t fpga_dot_write(struct file *inode, const char *gdata, size_t length, lof
 
 int __init fpga_dot_init(void)
 {
+	printk("%s\n", __FUNCTION__);
 	iom_fpga_dot_addr = ioremap(IOM_FPGA_DOT_ADDRESS, 0x10);
-	iom_demo_addr = ioremap(IOM_FPGA_DEMO_ADDRESS, 0x1);
+	iom_dot_demo_addr = ioremap(IOM_FPGA_DEMO_ADDRESS, 0x1);
 	
-	outb(UON,(unsigned int)iom_demo_addr);	    
+	outb(UON,(unsigned int)iom_dot_demo_addr);	    
 
 	return 0;
 }
 
 void __exit fpga_dot_exit(void) 
 {
+	printk("%s\n", __FUNCTION__);
 	iounmap(iom_fpga_dot_addr);
 }

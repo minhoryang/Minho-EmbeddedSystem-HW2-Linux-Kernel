@@ -7,7 +7,7 @@
 
 //Global variable
 static unsigned char *iom_fpga_text_lcd_addr;
-static unsigned char *iom_fpga_demo_addr;
+static unsigned char *iom_lcd_demo_addr;
 
 
 
@@ -35,14 +35,16 @@ ssize_t fpga_lcd_write(struct file *inode, const char *gdata, size_t length, lof
 
 int __init fpga_lcd_init(void)
 {
+	printk("%s\n", __FUNCTION__);
 	iom_fpga_text_lcd_addr = ioremap(IOM_FPGA_TEXT_LCD_ADDRESS, 0x20);
-	iom_fpga_demo_addr = ioremap(IOM_FPGA_DEMO_ADDRESS, 0x1);
+	iom_lcd_demo_addr = ioremap(IOM_FPGA_DEMO_ADDRESS, 0x1);
 	
-	outb(UON,(unsigned int)iom_fpga_demo_addr);	    
+	outb(UON,(unsigned int)iom_lcd_demo_addr);	    
 	return 0;
 }
 
 void __exit fpga_lcd_exit(void) 
 {
+	printk("%s\n", __FUNCTION__);
 	iounmap(iom_fpga_text_lcd_addr);
 }

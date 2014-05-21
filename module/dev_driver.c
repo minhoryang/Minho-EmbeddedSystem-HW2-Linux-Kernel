@@ -14,6 +14,7 @@
 #include <linux/ioport.h>
 #include <linux/slab.h>
 
+#include "./4bytes.c"
 #include "./drivers/gpio_fnd.c"
 #include "./drivers/gpio_led.c"
 #include "./drivers/fpga_dot.c"
