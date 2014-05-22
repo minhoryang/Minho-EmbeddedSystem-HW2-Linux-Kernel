@@ -1,8 +1,16 @@
+struct strrow{
+	int now;
+	int accel;
+	char *line;
+	int size;
+};
+
 struct wanted{
 	char timelapse;
 	char count;
 	char loc_where;  // 1~4
 	char loc_value;  // 1~8
+	struct strrow line[2];
 };
 
 struct wanted *revert(int system_called){
@@ -11,7 +19,33 @@ struct wanted *revert(int system_called){
 	this->loc_where = (system_called / 256) % 256;
 	this->count = (system_called / 256 / 256) % 256;
 	this->timelapse = (system_called / 256 / 256 / 256) % 256;
+	this->line[0].now = 4;
+	this->line[0].accel = +1;
+	this->line[0].line = "20091631";
+	this->line[0].size = 8;
+	this->line[1].now = 2;
+	this->line[1].accel = +1;
+	this->line[1].line = "Ryang Min Ho";
+	this->line[1].size = 12;
 	return this;
+}
+
+char *calc_lcd(struct wanted *var){
+	char *c;// = (char *)calloc(32, sizeof(char));
+	int i = 0, j, k;
+	for(k=0; k<2; k++){
+		for(j=0; j < var->line[k].now; i++, j++)
+			c[i] = ' ';
+		for(j=0; j < var->line[k].size; i++, j++)
+			c[i] = var->line[k].line[j];
+		for(j=0; j < 16 - var->line[k].size - var->line[k].now; i++, j++)
+			c[i] = ' ';
+	}
+	return c;
+}
+
+void draw_lcd(char *line_in){
+	;
 }
 
 void draw(struct wanted *var){
@@ -40,6 +74,32 @@ void next_turn(struct wanted *var){
 				case 5:
 					var->loc_where = 1;
 				default:
+					break;
+			}
+			switch(var->line[0].now){
+				case 0:
+					var->line[0].accel = +1;
+					var->line[0].now = 1;
+					break;
+				case 8:
+					var->line[0].accel = -1;
+					var->line[0].now = 7;
+					break;
+				default:
+					var->line[0].now += var->line[0].accel;
+					break;
+			}
+			switch(var->line[1].now){
+				case 0:
+					var->line[0].accel = +1;
+					var->line[0].now = 1;
+					break;
+				case 4:
+					var->line[0].accel = -1;
+					var->line[0].now = 3;
+					break;
+				default:
+					var->line[1].now += var->line[1].accel;
 					break;
 			}
 			// TODO register new timer.
