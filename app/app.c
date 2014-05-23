@@ -4,7 +4,7 @@
 #include <linux/unistd.h>
 #include <sys/syscall.h>
 
-#define SYSCALL_NUM 242
+#define SYSCALL_NUM 366
 #define MODULE_DEV "/dev/dev_driver"
 
 int main(int argc, char* argv[]){
