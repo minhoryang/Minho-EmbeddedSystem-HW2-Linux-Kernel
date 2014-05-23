@@ -1,3 +1,4 @@
+#include "./fpga_led.h"
 #define IOM_LED_ADDRESS 0x04000016 // pysical address
 #define IOM_DEMO_ADDRESS 0x04000300 
 
@@ -34,6 +35,7 @@ int __init fpga_led_init(void)
 void __exit fpga_led_exit(void) 
 {
 	printk("%s\n", __FUNCTION__);
+	fpga_led_write(0);
 	iounmap(iom_fpga_led_addr);
 	iounmap(iom_led_demo_addr);
 }

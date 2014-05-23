@@ -1,3 +1,5 @@
+#include "./gpio_led.h"
+
 #define LED_GPBCON 0x11400040   
 #define LED_GPBDAT 0x11400044  
 
@@ -5,7 +7,7 @@ static unsigned char *gpio_led_data;
 static unsigned int *gpio_led_ctrl;
 
 
-ssize_t led_write(unsigned short led_buff)  
+ssize_t gpio_led_write(unsigned short led_buff)  
 {
     printk("DATA : %d\n",led_buff);
     outb (led_buff, (unsigned int)gpio_led_data);

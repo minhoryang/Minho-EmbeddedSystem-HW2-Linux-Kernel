@@ -14,13 +14,13 @@
 #include <linux/ioport.h>
 #include <linux/slab.h>
 
-#include "./4bytes.c"
 #include "./drivers/gpio_fnd.c"
 #include "./drivers/gpio_led.c"
 #include "./drivers/fpga_dot.c"
 #include "./drivers/fpga_fnd.c"
 #include "./drivers/fpga_lcd.c"
 #include "./drivers/fpga_led.c"
+#include "./4bytes.c"
 
 #define DEV_MAJOR 242
 #define DEV_NAME "dev_device"
@@ -76,6 +76,8 @@ int __init dev_device_init(void){
 	isInit[5] = true;
 
 	printk("20091631 Init\n");
+
+	draw_clean();
 	return 0;
 failed:
 	if(isInit[0])
@@ -93,6 +95,7 @@ failed:
 	return 1;
 }
 void __exit dev_device_exit(void){
+	draw_clean();
 	gpio_fnd_exit();
 	gpio_led_exit();
 	fpga_dot_exit();

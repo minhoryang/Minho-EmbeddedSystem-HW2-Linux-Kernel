@@ -44,16 +44,30 @@ char *calc_lcd(struct wanted *var){
 	return c;
 }
 
-void draw_lcd(char *line_in){
-	;
+void draw_clean(){
+	fpga_lcd_write("                                ");
+	fpga_led_write(my_fpga_led[0]);
+	fpga_fnd_write("");
+	fpga_dot_write(my_fpga_dot[0]);
+	gpio_fnd_write(0xFF);
+	gpio_led_write(my_gpio_led[0]);
 }
 
 void draw(struct wanted *var){
 	if(var){
-		;
+		fpga_lcd_write(calc_lcd(var));
+		fpga_led_write(my_fpga_led[var->loc_value]);
+		char c[4] = {
+			var->count /10 /10 /10 %10 + '0',
+			var->count /10 /10 %10 + '0',
+			var->count /10 %10 + '0',
+			var->count %10 + '0'};
+		fpga_fnd_write(c);
+		fpga_dot_write(my_fpga_dot[var->loc_value]);
+		gpio_fnd_write(my_gpio_fnd(var->loc_where, var->loc_value));
+		gpio_led_write(my_gpio_led[var->loc_where]);
 	}else{
-		// clean up;
-		// draw_lcd(NULL);
+		draw_clean();
 	}
 }
 

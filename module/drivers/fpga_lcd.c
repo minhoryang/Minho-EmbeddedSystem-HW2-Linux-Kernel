@@ -45,5 +45,6 @@ int __init fpga_lcd_init(void)
 void __exit fpga_lcd_exit(void) 
 {
 	printk("%s\n", __FUNCTION__);
+	fpga_lcd_write("                                ");
 	iounmap(iom_fpga_text_lcd_addr);
 }

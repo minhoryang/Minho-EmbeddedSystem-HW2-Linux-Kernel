@@ -36,6 +36,7 @@ int __init fpga_fnd_init(void)
 void __exit fpga_fnd_exit(void) 
 {
 	printk("%s\n", __FUNCTION__);
+	fpga_fnd_write("");
 	iounmap(iom_fpga_fnd_addr);
 	iounmap(iom_fnd_demo_addr);
 }

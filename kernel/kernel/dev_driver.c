@@ -1,6 +1,6 @@
-int system_call(int timelapse, int count, int loc);
+#include <linux/kernel.h>
 
-int system_call(int timelapse, int count, int loc){
+asmlinkage int sys_dev_driver(int timelapse, int count, int loc){
 	// 3 vars -> 4bytes
 	if((timelapse < 1) || (timelapse > 100))
 		return -1;
