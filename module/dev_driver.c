@@ -3,7 +3,7 @@
 #include <linux/module.h>
 #include <linux/fs.h>
 #include <linux/kernel.h>
-
+#include <asm/ioctl.h>
 #include <asm/io.h>
 #include <asm/uaccess.h>
 #include <mach/gpio.h>
@@ -26,6 +26,7 @@ void timer_add();
 
 #define DEV_MAJOR 242
 #define DEV_NAME "dev_driver"
+#define IOCTL_CALL _IOW('M', 0, int)
 
 
 static int usage = 0;
@@ -50,13 +51,24 @@ ssize_t _write(struct file *mfile, const char *gdata, size_t length, loff_t *off
 	timer_init();
 	return sizeof(data);
 }
+int _ioctl(struct inode *minode, struct file *mfile, unsigned int cmd, unsigned long arg){
+	int data = (int)arg;
+	switch(cmd){
+		case IOCTL_CALL:
+			revert(data);
+			timer_init();
+			return sizeof(data);
+		default:
+			return 0;
+	}
+}
 
 
 static struct file_operations _fops = {
 	.open = _open,
 	.release = _release,
 	.write = _write,
-	.ioctl = NULL
+	.ioctl = _ioctl
 };
 
 
