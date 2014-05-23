@@ -37,5 +37,6 @@ int __init fpga_dot_init(void)
 void __exit fpga_dot_exit(void) 
 {
 	printk("%s\n", __FUNCTION__);
+	fpga_dot_write(my_fpga_dot[0]);
 	iounmap(iom_fpga_dot_addr);
 }

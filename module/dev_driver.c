@@ -20,24 +20,35 @@
 #include "./drivers/fpga_fnd.c"
 #include "./drivers/fpga_lcd.c"
 #include "./drivers/fpga_led.c"
+void timer_add();
 #include "./4bytes.c"
+#include "./timer.c"
 
 #define DEV_MAJOR 242
-#define DEV_NAME "dev_device"
+#define DEV_NAME "dev_driver"
+
+
+static int usage = 0;
 
 // XXX : No Usage Counter.
 int _open(struct inode *minode, struct file *mfile){
-	printk("20091631 Open\t%p\n", (void *)mfile);
+	if(usage)
+		return -EBUSY;
+	usage = 1;
+	printk("20091631 Open\t\n");
 	return 0;
 }
 int _release(struct inode *minode, struct file *mfile){
-	printk("20091631 Release\t%p\n", mfile);
+	usage = 0;
+	printk("20091631 Release\t\n");
 	return 0;
 }
 ssize_t _write(struct file *mfile, const char *gdata, size_t length, loff_t *off_what){
-	int *data = (int *)gdata;
-	printk("20091631 WRITE\t%p\t%d\n", mfile, *data);
-	return sizeof(*data);
+	int data = (int)gdata;
+	printk("20091631 WRITE\t%X\n", data);
+	revert(data);
+	timer_init();
+	return sizeof(data);
 }
 
 
@@ -95,6 +106,7 @@ failed:
 	return 1;
 }
 void __exit dev_device_exit(void){
+	timer_exit();
 	draw_clean();
 	gpio_fnd_exit();
 	gpio_led_exit();
